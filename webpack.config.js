@@ -1,7 +1,5 @@
-const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
-
 module.exports = {
-    mode: "development",
+    mode: "production",
 
     // 엔트리 파일 경로
     entry: "./src/react/index.tsx",
@@ -9,7 +7,7 @@ module.exports = {
     // 빌드 결과물을 dist/react/main.js에 위치
     output: {
         filename: "main.js",
-        path: __dirname + "/dist/react",
+        path: __dirname + "/dist/react/",
     },
 
     // 디버깅을 위해 빌드 결과물에 소스맵 추가
@@ -45,10 +43,18 @@ module.exports = {
     },
 
     devServer: {
-        contentBase: "./",
-        publicPath: "/dist/react",
         hot: true,
+        static: __dirname + "/",
+        devMiddleware: {
+            writeToDisk: true,
+        },
     },
 
-    plugins: [new MonacoWebpackPlugin()],
+    plugins: [],
+
+    performance: {
+        hints: false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000,
+    },
 };

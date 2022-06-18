@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Menu } from "antd";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 import { SidePageBarElement, sidePageBarElements } from "./pages";
 import { Context, contextDefaultValue } from "../Context";
 
@@ -69,9 +69,9 @@ export function SidePageBar() {
                 return (
                     <Menu.Item
                         key={idx.toString()}
-                        icon={<elem.icon />}
+                        icon={<elem.icon size={"46px"} />}
                         className={classes.sideMenuBarElement}
-                        style={{ height: "46px", margin: "0" }}
+                        style={{ height: "46px", margin: "0", width: "85px" }}
                         onClick={handleClick}
                     >
                         {elem.toolTip}

@@ -4,8 +4,8 @@ import { Service } from "typedi";
 import { SidePageBarElement } from "..";
 import { Context, TestCase, getDefaultTestCase } from "../../../Context";
 import { Menu } from "antd";
-import MonacoEditor, { ChangeHandler } from "react-monaco-editor";
-import { makeStyles } from "@material-ui/styles";
+import Editor from "@monaco-editor/react";
+import { makeStyles } from "@mui/styles";
 import {
     CopyOutlined,
     DeleteOutlined,
@@ -216,7 +216,7 @@ export class TestCasePage implements SidePageBarElement {
             function createTestViewers() {
                 interface _ViewerOption {
                     value: string;
-                    handleChange: ChangeHandler;
+                    handleChange: (value: string | undefined) => void;
                 }
 
                 /**
@@ -227,7 +227,7 @@ export class TestCasePage implements SidePageBarElement {
                     idx: number,
                 ) {
                     return (
-                        <MonacoEditor
+                        <Editor
                             key={idx}
                             height={"calc( 100vh - 46px )"}
                             width={"calc( (100vw - 85px) / 2 )"}
@@ -252,7 +252,8 @@ export class TestCasePage implements SidePageBarElement {
                     // 현재 포커싱된 테스트의 input을 보여주는 에디터 옵션
                     {
                         value: contextRef.testCases[state.selected].input,
-                        handleChange: function (newInput) {
+                        handleChange: function (newInput: string | undefined) {
+                            if (newInput === undefined) newInput = "";
                             contextRef.testCases[state.selected].input = newInput;
                         },
                     },
@@ -260,7 +261,8 @@ export class TestCasePage implements SidePageBarElement {
                     // 현재 포커싱된 테스트의 actual을 보여주는 에디터 옵션
                     {
                         value: contextRef.testCases[state.selected].expect,
-                        handleChange: function (newExpect) {
+                        handleChange: function (newExpect: string | undefined) {
+                            if (newExpect === undefined) newExpect = "";
                             contextRef.testCases[state.selected].expect = newExpect;
                         },
                     },

@@ -14,6 +14,7 @@ app.whenReady().then(() => {
     const window = new BrowserWindow({
         webPreferences: {
             nodeIntegration: true,
+            contextIsolation: false,
         },
         width: 1600,
         height: 1000,

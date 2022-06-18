@@ -1,11 +1,11 @@
 import React from "react";
-import MonacoEditor from "react-monaco-editor";
+import Editor from "@monaco-editor/react";
 import { Menu } from "antd";
 import { CaretRightOutlined, SettingOutlined } from "@ant-design/icons";
 import { VscCode } from "react-icons/vsc";
 import Container, { Service } from "typedi";
 import { SidePageBarElement } from "..";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 import { toast } from "react-toastify";
 import { Context } from "../../../Context";
 import SubMenu from "antd/lib/menu/SubMenu";
@@ -106,11 +106,12 @@ export class CodeEditorPage implements SidePageBarElement {
              * 코드를 작성할 수 있는 에디터를 생성한다.
              */
             function createEditor() {
-                function onChange(newCode: string) {
+                function onChange(newCode: string | undefined) {
+                    if (newCode == undefined) newCode = "";
                     context.setContext({ ...context, code: newCode });
                 }
                 return (
-                    <MonacoEditor
+                    <Editor
                         height={"calc( 100vh - 46px )"}
                         width={"calc( 100vw - 85px )"}
                         options={{
@@ -150,6 +151,7 @@ export class CodeEditorPage implements SidePageBarElement {
                             bodyStyle={{
                                 display: "table",
                                 margin: "0 auto",
+                                float: "right",
                             }}
                         >
                             <TestProgressDisplay />

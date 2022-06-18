@@ -1,6 +1,10 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import { SidePageBar } from "./components/SidePageBar";
+import { loader } from "@monaco-editor/react";
+import * as monaco from "monaco-editor";
+
+loader.config({ monaco });
 
 export function App() {
     return (

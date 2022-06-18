@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MonacoEditor from "react-monaco-editor";
+import Editor from "@monaco-editor/react";
 import { Menu } from "antd";
 import { VscQuestion } from "react-icons/vsc";
 import { Service } from "typedi";
@@ -36,7 +36,7 @@ export class HelpPage implements SidePageBarElement {
                     ))}
                 </Menu>
                 {/* 코드 에디터 */}
-                <MonacoEditor
+                <Editor
                     height={"calc( 100vh - 46px )"}
                     width={"calc( 100vw - 85px )"}
                     options={{

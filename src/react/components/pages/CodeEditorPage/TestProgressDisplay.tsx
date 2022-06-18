@@ -56,10 +56,8 @@ export class TestProgressDisplay extends React.Component<Props, State> {
             //
             // 각 테스트에 대해, 테스트 요청 메세지 송신
             contextRef.testCases.forEach((testCase, idx) => {
-                const testRequestMessage: TestRequestMessage = contextRef.lang.createTestRequestMessage(
-                    idx,
-                    testCase,
-                );
+                const testRequestMessage: TestRequestMessage =
+                    contextRef.lang.createTestRequestMessage(idx, testCase);
                 ipcRenderer.send(Channels.TEST_REQ, testRequestMessage);
             });
         });

@@ -4,14 +4,10 @@ import { Service } from "typedi";
 import { SidePageBarElement } from "..";
 import { Context, TestResult } from "../../../Context";
 import { Menu } from "antd";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@mui/styles";
 import { CheckOutlined, StopOutlined } from "@ant-design/icons";
 import SubMenu from "antd/lib/menu/SubMenu";
-import MonacoEditor, {
-    MonacoDiffEditor,
-    MonacoDiffEditorProps,
-    MonacoEditorProps,
-} from "react-monaco-editor";
+import Editor, { DiffEditor, EditorProps, DiffEditorProps } from "@monaco-editor/react";
 
 /**
  * 코드 에디터 페이지 디자인
@@ -143,7 +139,7 @@ export class TestOutputPage implements SidePageBarElement {
                 function createMonacoEditorProps(
                     denominator: number,
                     numerator: number,
-                ): MonacoEditorProps & MonacoDiffEditorProps {
+                ): EditorProps & DiffEditorProps {
                     return {
                         height: "100vh",
                         width: `calc( (100vw - 85px - 222px) / ${denominator} * ${numerator} )`,
@@ -160,16 +156,16 @@ export class TestOutputPage implements SidePageBarElement {
                 return (
                     <>
                         {/* 현재 포커싱된 테스트의 input */}
-                        <MonacoEditor
+                        <Editor
                             {...createMonacoEditorProps(3, 1)}
                             value={contextRef.testResults[state.selected]?.input}
                         />
 
                         {/* 현재 포커싱된 테스트의 expect, actual */}
-                        <MonacoDiffEditor
+                        <DiffEditor
                             {...createMonacoEditorProps(3, 2)}
                             original={contextRef.testResults[state.selected]?.expect}
-                            value={contextRef.testResults[state.selected]?.actual}
+                            modified={contextRef.testResults[state.selected]?.actual}
                         />
                     </>
                 );
